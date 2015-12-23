@@ -19,7 +19,12 @@ class Authenticate {
     * return boolean
     */
     public function postAuthenticate($username, $password){
-        return $this->getContainer('auth')->doLogin($username, $password);
+        $pop3 = eden('mail')->pop3(
+                MAIL_HOST, $username, $password, MAIL_PORT, MAIL_SSL);
+        if($pop3->getEmailTotal()) {
+            return array('status'=>200, 'success'=>true, 'message'=>'Authenticated !');
+        }
+        return array('status'=>403, 'success'=>false, 'message'=>'Username or password is wrong :(');
     }
 
     /**
