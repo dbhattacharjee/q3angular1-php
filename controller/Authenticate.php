@@ -27,14 +27,24 @@ class Authenticate {
         return array('status'=>403, 'success'=>false, 'message'=>'Username or password is wrong :(');
     }
 
-    /**
-     * @param string $server
-     * @url stats/([0-9]+)
-     * @url stats
-     * @return string
-     */
-    public function getStats($server = '1'){
-        return $this->getServerStats($server);
+    public function getMails($authkey, $offset = 0, $limit = 5){
+       // return array('status'=>200, 'success'=>true, 'mails'=>array(array('subject'=>'test'), array('subject'=>'teting')));
+        $auth = explode(':', base64_decode($authkey));
+        $pop3 = eden('mail')->pop3(
+                MAIL_HOST, $auth[0], $auth[1], MAIL_PORT, MAIL_SSL);
+        $tempMails = array();
+        if($mails = $pop3->getEmails(1, 10)) {
+            foreach($mails as $key=>$mail) {
+                $tempMails[$key]['subject'] = $mail['subject'];
+                $tempMails[$key]['from']['email'] = $mail['from']['email'];
+                $tempMails[$key]['to'][0]['email'] = $mail['to'][0]['email'];
+                $tempMails[$key]['date'] = date('Y-m-d H:i:s', $mail['date']);
+            }
+            usort($tempMails, function($a, $b) {
+                return strtotime($a['date']) - strtotime($b['date']);
+            });
+        }
+        return array('status'=>200, 'success'=>true, 'mails'=>$tempMails);
     }
 
 }

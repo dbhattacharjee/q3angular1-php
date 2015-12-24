@@ -8,45 +8,38 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && empty($_POST)) {
 }
 
 include 'config/config.php';
+include 'library/pop3.php';
 include 'vendor/autoload.php';
 include 'controller/Authenticate.php';
 include 'controller/Mails.php';
-include 'vendor/eden/core/src/Control.php';
 
+$connection = pop3_login(MAIL_HOST,MAIL_PORT,'user@email.com','userpwd',$folder="INBOX",MAIL_SSL);
+
+$stat = pop3_stat($connection);
+$list = pop3_list($connection);
+echo '<pre>Connection : '.
+print_r($connection);
+echo '<br/>Stat:';
+print_r($stat);
+echo '<br/>List:';
+print_r($list);
+die;
 
 use RestService\Server;
 
-//
-//$pop3 = eden('mail')->pop3(
-//    'mail.q3tech.com', 
-//    'dbhattacharjee@q3tech.com', 
-//    '2{d^iF$MJu7y', 
-//    110, 
-//    false);
-//echo '<pre>';
-//$total = $pop3->getEmailTotal();
-//if($total) {
-//    $emails = $pop3->getEmails(0, 10);
-//    usort($emails, function($a, $b) {
-//                return $a['date'] - $b['date'];
-//            });
-//    foreach($emails as $key=>$email) {
-//        echo $key.PHP_EOL;
-//        print_r($email);
-//    }
-//}
-//
-//die('here');
+
+
 
 
 
 
 try {
-Server::create('/api', new Angular\Authenticate)
-     ->addSubController('/mail', new Angular\Mails)   
+$s = Server::create('/api', new Angular\Authenticate)
+     ->setDebugMode(true)   
     ->collectRoutes()
     ->setDebugMode(true)    
 ->run();
+
 }catch(\Exception $e) {
     return json_encode(array('status'=>400, 'success'=>false, 'message'=>$e->getMessage()));
 }

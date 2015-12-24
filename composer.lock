@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "7df8deac0af7321e2846ae95484347d6",
-    "content-hash": "ee4f5aea4aae007231dcf59fa0845d5e",
+    "hash": "18b1bbf7d7d664c182c36c8789dcec33",
+    "content-hash": "169e0be2425b13c5d18b347a54dd5fa1",
     "packages": [
         {
             "name": "eden/array",
@@ -137,52 +137,6 @@
                 "library"
             ],
             "time": "2015-10-13 04:39:48"
-        },
-        {
-            "name": "eden/mail",
-            "version": "4.0.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Eden-PHP/Mail.git",
-                "reference": "e84a7a88b1ec2bb009d7c4ec03917c64b4d3b51a"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Eden-PHP/Mail/zipball/e84a7a88b1ec2bb009d7c4ec03917c64b4d3b51a",
-                "reference": "e84a7a88b1ec2bb009d7c4ec03917c64b4d3b51a",
-                "shasum": ""
-            },
-            "require": {
-                "eden/array": "4.*",
-                "eden/core": "4.*",
-                "eden/file": "4.*",
-                "eden/path": "4.*",
-                "eden/string": "4.*",
-                "php": ">=5.4.1"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Eden\\Mail\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Christian Blanquera",
-                    "email": "cblanquera@openovate.com"
-                }
-            ],
-            "description": "Eden POP3, IMAP and SMTP component",
-            "homepage": "http://eden-php.com",
-            "keywords": [
-                "eden",
-                "library"
-            ],
-            "time": "2015-10-13 05:03:45"
         },
         {
             "name": "eden/path",

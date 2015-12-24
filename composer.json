@@ -1,6 +1,5 @@
 {
     "require": {
-        "marcj/php-rest-service": "*",
-        "eden/mail": "^4.0"
+        "marcj/php-rest-service": "*"
     }
 }
