@@ -88,4 +88,47 @@ function mail_decode_part($connection,$message_number,$part,$prefix)
         $attachment['data'] = quoted_printable_decode($attachment['data']);
     }
     return($attachment);
-} 
+}
+
+function pop3_fetch_emails($imap, $limit = 20) {
+    $numMessages = imap_num_msg($imap);
+    $details = array();
+    for ($i = $numMessages; $i > ($numMessages - $limit); $i--) {
+        $header = imap_header($imap, $i);
+        
+
+        $from = $header->from;
+        $fromInfo = '';
+        foreach($from as $value) {
+            if($fromInfo !='') {
+                $fromInfo .= ', ';
+            }
+            $temp = $value->mailbox.'@'.$value->host;
+            if(property_exists($value, 'personal')) {
+                $temp = $value->personal.'<'.$temp.'>';
+            }
+            $fromInfo .= $temp;
+        }
+        $to = $header->to;
+        $toInfo = '';
+        foreach($to as $value) {
+            if($toInfo !='') {
+                $toInfo .= ', ';
+            }
+            $temp = $value->mailbox.'@'.$value->host;
+            if(property_exists($value, 'personal')) {
+                $temp = $value->personal.'<'.$temp.'>';
+            }
+            $toInfo .= $temp;
+        }
+
+        $details[] = array(
+            "from" => $fromInfo,
+            "to" => $toInfo,
+            "subject" => (isset($header->subject)) ? trim($header->subject) : "",
+            "udate" => (isset($header->udate)) ? $header->udate : time(),
+            "uid"=>imap_uid($imap, $i)
+        );
+    }
+    return $details;
+}
