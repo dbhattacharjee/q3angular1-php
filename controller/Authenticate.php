@@ -49,7 +49,7 @@ class Authenticate {
                 return array('status' => 200, 'success' => true, 'message' => 'Authenticated !');
             }
         }
-        return array('status'=>403, 'success'=>false, 'message'=>'Username or password is wrong :(');
+        return array('status'=>403, 'success'=>false, 'message'=>'Email id or password is wrong :(');
     }
 
     public function getMails($authkey, $offset = 0, $limit = 5){

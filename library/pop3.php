@@ -95,7 +95,6 @@ function pop3_fetch_emails($imap, $limit = 20) {
     $details = array();
     for ($i = $numMessages; $i > ($numMessages - $limit); $i--) {
         $header = imap_header($imap, $i);
-        
 
         $from = $header->from;
         $fromInfo = '';
@@ -105,7 +104,9 @@ function pop3_fetch_emails($imap, $limit = 20) {
             }
             $temp = $value->mailbox.'@'.$value->host;
             if(property_exists($value, 'personal')) {
-                $temp = $value->personal.'<'.$temp.'>';
+                $temp = '<a href="mailto:'.$temp.'" target="_top">'.$value->personal.'</a>';
+            }else {
+                $temp = '<a href="mailto:'.$temp.'" target="_top">'.$temp.'</a>';
             }
             $fromInfo .= $temp;
         }
@@ -117,10 +118,14 @@ function pop3_fetch_emails($imap, $limit = 20) {
             }
             $temp = $value->mailbox.'@'.$value->host;
             if(property_exists($value, 'personal')) {
-                $temp = $value->personal.'<'.$temp.'>';
+                $temp = '<a href="mailto:'.$temp.'" target="_top">'.$value->personal.'</a>';
+            } else {
+                $temp = '<a href="mailto:'.$temp.'" target="_top">'.$temp.'</a>';
             }
             $toInfo .= $temp;
         }
+        $fromInfo = str_replace("'", "", $fromInfo);
+        $toInfo = str_replace("'", "", $toInfo);
 
         $details[] = array(
             "from" => $fromInfo,
