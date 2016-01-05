@@ -142,7 +142,7 @@ class Authenticate {
         if($userId = $this->_validateUser($username, $password)) {
             //fetch sync mails
             $conn = $GLOBALS['glob_conn'];
-            $query = 'SELECT id, fromAddress, toAddress,ccAddress, body FROM `mails` WHERE `user_id` = :user_id AND `id` = :id AND `body` IS NOT NULL';
+            $query = 'SELECT * FROM `mails` WHERE `user_id` = :user_id AND `id` = :id AND `body` IS NOT NULL';
             $statement = $conn->prepare($query);
             $statement->execute(array(':user_id' => trim($userId), ':id'=>$id));
             $mailInfo = $statement->fetch();
