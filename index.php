@@ -1,6 +1,9 @@
 <?php
+header('Access-Control-Allow-Origin: *');
+header( 'Access-Control-Allow-Headers: Authorization, Content-Type' );
 error_reporting(1);
 ini_set('display_errors', 1);
+
 
 //hacky hacky !
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && empty($_POST)) {
