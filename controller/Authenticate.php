@@ -133,21 +133,25 @@ class Authenticate {
     }
     
     public function getSingleMail($authkey, $id){
+        
 
         $auth = explode(':', base64_decode($authkey));
         $username = $auth[0];
         $password = $auth[1];
-        
+        $mailInfo = array();
         if($userId = $this->_validateUser($username, $password)) {
             //fetch sync mails
             $conn = $GLOBALS['glob_conn'];
-            $query = 'SELECT * FROM `mails` WHERE `user_id` = :user_id AND `id` = :id AND `body` IS NOT NULL';
+            $query = 'SELECT id, fromAddress, toAddress,ccAddress, body FROM `mails` WHERE `user_id` = :user_id AND `id` = :id AND `body` IS NOT NULL';
             $statement = $conn->prepare($query);
             $statement->execute(array(':user_id' => trim($userId), ':id'=>$id));
+            $mailInfo = $statement->fetch();
+            $mailInfo['body'] = utf8_encode($mailInfo['body']);
+            unset($mailInfo[4]);
             
         }
 
-        return array('status'=>200, 'success'=>true, 'mailInfo'=>$statement->fetch());
+        return array('status'=>200, 'success'=>true, 'mailInfo'=> $mailInfo);
     }
 
 }
