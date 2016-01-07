@@ -11,3 +11,6 @@ define('DB_PASSWORD', 'Q3tech123');
 define('DB_NAME', 'q3mail_viewer');
 
 define('ENCRYPTION_KEY', 'q3Testem!#@');
+
+define('BASE_URL', 'http://192.168.12.80/angular/heroku2');
+define('ATTACHMENT_URL', BASE_URL.'/attachments/');

@@ -4,6 +4,7 @@ header( 'Access-Control-Allow-Headers: Authorization, Content-Type' );
 error_reporting(1);
 ini_set('display_errors', 1);
 
+define("BASE_DIR", __DIR__);
 
 //hacky hacky !
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && empty($_POST)) {
@@ -27,7 +28,7 @@ $glob_conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 }
 
 
-//$connection = pop3_login(MAIL_HOST,MAIL_PORT,'dbhattacharjee@q3tech.com','2{d^iF$MJu7y',$folder="INBOX",MAIL_SSL);
+//$connection = pop3_login(MAIL_HOST,MAIL_PORT,'dbhattacharjee@q3tech.com','',$folder="INBOX",MAIL_SSL);
 //
 //print_r($connection);die;
 //
@@ -42,10 +43,29 @@ $glob_conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 //die;
 
 use RestService\Server;
+use PhpImap\Mailbox as ImapMailbox;
+use PhpImap\IncomingMail;
+use PhpImap\IncomingMailAttachment;
 
-
-
-
+//$mailbox = new PhpImap\Mailbox('{'.MAIL_HOST.':'.MAIL_PORT.'/pop3/novalidate-cert}INBOX', 'dbhattacharjee@q3tech.com', '', __DIR__.'/attachments');
+//
+//echo '<pre>';print_r($mailbox->statusMailbox(array(1)));
+////die;
+//////
+////$mailsIds = $mailbox->searchMailbox('UNSEEN');
+//echo '<pre>';
+////print_r($mailsIds);
+//
+////$mailId = reset($mailsIds);
+//$mail = $mailbox->getMail(1, true);
+//$mailbox->setFlag(array(1), '\\Seen');
+//echo '<pre>';
+//print_r($mail);
+//print_r($mail->getAttachments());
+////die;
+////echo '<pre>';
+////print_r($mailsIds);
+//die;
 
 
 

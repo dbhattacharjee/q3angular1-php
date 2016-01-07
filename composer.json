@@ -1,5 +1,9 @@
 {
+    "repositories": {
+        "packagist": {"url": "https://packagist.org", "type": "composer"}
+    },
     "require": {
-        "marcj/php-rest-service": "*"
+        "marcj/php-rest-service": "*",
+        "php-imap/php-imap": "~2.0"
     }
 }
